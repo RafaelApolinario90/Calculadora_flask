@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function adicionar(valor) {
+            const campo = document.getElementById("expressao");
+            if (valor === "C") {
+                campo.value = "";
+            } else if (valor === "=") {
+                document.getElementById("formulario").submit();
+            } else {
+                campo.value += valor;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="calculadora">
+        <form method="POST" id="formulario">
+            <input type="text" name="expressao" id="expressao" class="display" value="{{ resultado }}" readonly>
+            <div class="botoes">
+                {% for btn in ['7', '8', '9', '/', '√',
+                               '4', '5', '6', '*', '%',
+                               '1', '2', '3', '-', 'CE',
+                               '0', '.', '+', '=', 'C'] %}
+                    <button type="button" onclick="adicionar('{{ btn }}')">{{ btn }}</button>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>
